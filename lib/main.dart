@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(MyApp());
@@ -8,6 +9,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final lightText = Colors.white;
+    final fontFamilyText = GoogleFonts.lato;
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -20,13 +23,74 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.red,
+        textTheme: TextTheme(
+            headline1: fontFamilyText(fontSize: 24, color: lightText),
+            headline3: fontFamilyText(
+                fontSize: 20, color: lightText, fontWeight: FontWeight.w300)),
+
+        // GoogleFonts.latoTextTheme(Theme.of(context).textTheme),
+        primaryColor: Colors.indigo,
+        primaryColorLight: Colors.white,
+        backgroundColor: Color.fromRGBO(46, 72, 87, 1),
         // This makes the visual density adapt to the platform that you run
         // the app on. For desktop platforms, the controls will be smaller and
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(title: 'Counter App'),
+      home: WelcomePage(),
+    );
+  }
+}
+
+// class SecondPage extends StatelessWidget {
+//   @override
+//   _SecondPage create() => _SecondPage();
+// }
+
+class WelcomePage extends StatelessWidget {
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
+      body: Center(child: WelcomeSlide()),
+      floatingActionButton: FloatingActionButton.extended(
+          onPressed: () {
+            // Add your onPressed code here!
+          },
+          elevation: 1,
+          label: Text('Get Started'),
+          backgroundColor: Colors.pink),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+    );
+  }
+}
+
+class WelcomeSlide extends StatefulWidget {
+  WelcomeSlide({Key key}) : super(key: key);
+
+  @override
+  _FirstWelcomeSlide createState() => _FirstWelcomeSlide();
+}
+
+class _FirstWelcomeSlide extends State<WelcomeSlide> {
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Image(
+          image: AssetImage('assets/images/welcome.png'),
+          height: 200,
+          width: 200,
+        ),
+        Text(
+          "Welcome to Momento",
+          style: Theme.of(context).textTheme.headline1,
+        ),
+        Text(
+          "We schedule your activity",
+          style: Theme.of(context).textTheme.headline3,
+        )
+      ],
     );
   }
 }
@@ -117,7 +181,7 @@ class _MyHomePageState extends State<MyHomePage> {
             FloatingActionButton(
               onPressed: _incrementCounter,
               tooltip: 'Increment',
-              child: Icon(Icons.add_circle),
+              child: Icon(Icons.add_circle, size: 20),
             ),
             FloatingActionButton(
               onPressed: _decrementCounter,
