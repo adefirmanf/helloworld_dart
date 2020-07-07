@@ -51,7 +51,7 @@ class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      body: Center(child: WelcomeSlide()),
+      body: WelcomeSlide(),
       floatingActionButton: FloatingActionButton.extended(
           onPressed: () {
             // Add your onPressed code here!
@@ -74,24 +74,33 @@ class WelcomeSlide extends StatefulWidget {
 class _FirstWelcomeSlide extends State<WelcomeSlide> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Image(
-          image: AssetImage('assets/images/welcome.png'),
-          height: 200,
-          width: 200,
-        ),
-        Text(
-          "Welcome to Momento",
-          style: Theme.of(context).textTheme.headline1,
-        ),
-        Text(
-          "We schedule your activity",
-          style: Theme.of(context).textTheme.headline3,
-        )
-      ],
-    );
+    return Center(
+        child: GestureDetector(
+      onHorizontalDragStart: (DragStartDetails detailsStart) {
+        print("Start");
+      },
+      onHorizontalDragUpdate: (DragUpdateDetails details) {
+        print(details);
+      },
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Image(
+            image: AssetImage('assets/images/welcome.png'),
+            height: 200,
+            width: 200,
+          ),
+          Text(
+            "Welcome to Momento",
+            style: Theme.of(context).textTheme.headline1,
+          ),
+          Text(
+            "We schedule your activity",
+            style: Theme.of(context).textTheme.headline3,
+          )
+        ],
+      ),
+    ));
   }
 }
 
