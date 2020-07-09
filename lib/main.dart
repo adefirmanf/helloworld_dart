@@ -5,6 +5,15 @@ void main() {
   runApp(MyApp());
 }
 
+class ResponsiveSize {
+  final BuildContext context;
+  final ratio = 0.5;
+  ResponsiveSize(this.context);
+
+  double get width => MediaQuery.of(this.context).size.width * ratio;
+  double get height => MediaQuery.of(this.context).size.width * ratio;
+}
+
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -50,16 +59,22 @@ class MyApp extends StatelessWidget {
 
 class WelcomePage extends StatelessWidget {
   Widget build(BuildContext context) {
+    final responsive = ResponsiveSize(context);
     return Scaffold(
+      resizeToAvoidBottomPadding: false,
       backgroundColor: Theme.of(context).backgroundColor,
       body: WelcomeSlide(),
-      floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            // Add your onPressed code here!
-          },
-          elevation: 1,
-          label: Text('Get Started'),
-          backgroundColor: Colors.pink),
+      floatingActionButton: Container(
+        margin: const EdgeInsets.all(20.0),
+        width: responsive.width,
+        child: FloatingActionButton.extended(
+            onPressed: () {
+              // Add your onPressed code here!
+            },
+            elevation: 1,
+            label: Text('Get Started'),
+            backgroundColor: Colors.pink),
+      ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
@@ -84,51 +99,70 @@ class _FirstWelcomeSlide extends State<WelcomeSlide> {
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image(
-              image: AssetImage('assets/images/welcome.png'),
-              height: 150,
-              width: 150,
-            ),
-            Text(
-              "Welcome to Momento",
-              style: Theme.of(context).textTheme.headline1,
-            ),
-            Text(
-              "We schedule your activity",
-              style: Theme.of(context).textTheme.headline3,
+            Expanded(
+              child: AspectRatio(
+                aspectRatio: 4 / 12,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Image(
+                        image: AssetImage('assets/images/welcome.png'),
+                        fit: BoxFit.fill),
+                    Text("Welcome to Momento",
+                        style: Theme.of(context).textTheme.headline1,
+                        textAlign: TextAlign.center),
+                    Text(
+                      "We schedule your activity",
+                      style: Theme.of(context).textTheme.headline3,
+                    )
+                  ],
+                ),
+              ),
             )
           ],
         ),
+        Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+          Expanded(
+              child: AspectRatio(
+            aspectRatio: 4 / 12,
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Image(
+                      image: AssetImage('assets/images/welcome-2.png'),
+                      fit: BoxFit.fill),
+                  Text("Organize your life is easier more than you think",
+                      style: Theme.of(context).textTheme.headline1,
+                      textAlign: TextAlign.center),
+                  Text("Support voice command to make easier",
+                      style: Theme.of(context).textTheme.headline3,
+                      textAlign: TextAlign.center),
+                ]),
+          ))
+        ]),
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Image(
-              image: AssetImage('assets/images/welcome-2.png'),
-              height: 150,
-              width: 150,
-            ),
-            Text("Organize your life is easier more than you think",
-                style: Theme.of(context).textTheme.headline1,
-                textAlign: TextAlign.center),
-            Text("Support voice command to make easier",
-                style: Theme.of(context).textTheme.headline3,
-                textAlign: TextAlign.center)
-          ],
-        ),
-        Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Image(
-              image: AssetImage('assets/images/welcome-3.png'),
-              height: 150,
-              width: 150,
-            ),
-            Text("We sync your notes to another device",
-                style: Theme.of(context).textTheme.headline1,
-                textAlign: TextAlign.center),
-            Text("Android, iOS, and Web support",
-                style: Theme.of(context).textTheme.headline3,
-                textAlign: TextAlign.center)
+            Expanded(
+              child: AspectRatio(
+                aspectRatio: 4 / 12,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Image(
+                      image: AssetImage('assets/images/welcome-3.png'),
+                      fit: BoxFit.fill,
+                    ),
+                    Text("We sync your notes to another device",
+                        style: Theme.of(context).textTheme.headline1,
+                        textAlign: TextAlign.center),
+                    Text("Android, iOS, and Web support",
+                        style: Theme.of(context).textTheme.headline3,
+                        textAlign: TextAlign.center)
+                  ],
+                ),
+              ),
+            )
           ],
         )
       ],
